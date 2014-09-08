@@ -50,13 +50,9 @@ public class Factor {
 			}
 		}
 		//TODO: Sort ArrayList
+		//Object[] sorted = factors.toArray();
+		//sorted.
 		
-		//for (i = 0; i < factors.size(); i++){
-			
-		//}
-	
 		System.out.println(factors.toString() + "\n");
 	}
-	
-	
 }
