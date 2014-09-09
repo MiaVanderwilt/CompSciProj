@@ -37,6 +37,8 @@ public class Factor {
 		//parse input
 		//factor, quit, or error message
 	}
+	
+	//TODO: return ArrayList<Integer>
 	//Factor method: take int and divide
 	public static void factor (int input){
 		ArrayList<Integer> factors = new ArrayList<Integer>();

@@ -9,5 +9,4 @@ public class FactorTest {
 }
 
 /* test: input, list size, list content
- * 
  */
