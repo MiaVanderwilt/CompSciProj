@@ -23,21 +23,20 @@ public class Factor {
 				if (input >= MIN_VALUE && input <= MAX_VALUE){
 					factor(input);
 				} else {
-					System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE);
+					System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE + ".\n");
 				}
 			} else {
 				if (scanner.next().equalsIgnoreCase("quit"))
 					run = false;
 				else 
-					System.out.println("Error: Input type must be an integer \n");
+					System.out.println("Error: Input must be of type integer. \n");
 				//error message
 			}
 		} while (run);
+		scanner.close();
 		//parse input
 		//factor, quit, or error message
-		
 	}
-	//Comment1
 	//Factor method: take int and divide
 	public static void factor (int input){
 		ArrayList<Integer> factors = new ArrayList<Integer>();
@@ -50,8 +49,7 @@ public class Factor {
 			}
 		}
 		//TODO: Sort ArrayList
-		//Object[] sorted = factors.toArray();
-		//sorted.
+		//Integer[] sorted = factors.toArray(new Integer[factors.size()]);
 		
 		System.out.println(factors.toString() + "\n");
 	}
