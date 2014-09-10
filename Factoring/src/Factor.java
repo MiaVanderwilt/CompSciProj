@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 //Assignment One
@@ -17,14 +19,19 @@ public class Factor {
 		
 		do {
 			System.out.println("Input integer between " + MIN_VALUE + "-" + MAX_VALUE + ": ");
-			//TODO: account for other types of input
+			//TODO: account for input of 2 integers --- GCD
 			if (scanner.hasNextInt()) {
 				int input = scanner.nextInt();
 				if (input >= MIN_VALUE && input <= MAX_VALUE){
-					factor(input);
+					ArrayList<Integer> factors = factor(input);
+					System.out.println(factors.toString() + "\n");
+					if (scanner.hasNextInt()) {
+						greatestDenom(factors, scanner.nextInt());
+					}
 				} else {
 					System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE + ".\n");
 				}
+				//TODO:Account for second int
 			} else {
 				if (scanner.next().equalsIgnoreCase("quit"))
 					run = false;
@@ -38,9 +45,9 @@ public class Factor {
 		//factor, quit, or error message
 	}
 	
-	//TODO: return ArrayList<Integer>
 	//Factor method: take int and divide
-	public static void factor (int input){
+	
+	public static ArrayList<Integer> factor (int input){//Made "static" so that it could be referenced in main
 		ArrayList<Integer> factors = new ArrayList<Integer>();
 		for (int i = 1; i <= Math.sqrt(input); i++){
 			if (input % i == 0){
@@ -50,9 +57,29 @@ public class Factor {
 					factors.add(input / i);
 			}
 		}
-		//TODO: Sort ArrayList
 		//Integer[] sorted = factors.toArray(new Integer[factors.size()]);
 		
-		System.out.println(factors.toString() + "\n");
+		return factors;
 	}
+	
+	private static int[] sortArrList (ArrayList<Integer> arrList) {
+		//TODO: Decide if/where to sort output array 
+		int index = 0;
+		int[] sorted = new int[arrList.size()]; 
+		for (int i : arrList) {
+			sorted[index] = i;
+			index++;
+		}
+		Arrays.sort(sorted);
+		return sorted;
+	}
+	
+	public static int greatestDenom (ArrayList<Integer> factA, int inputB){
+		ArrayList<Integer> factB = factor(inputB);
+		boolean alterA = factA.retainAll(factB);//removes all factors in A not contained in B
+		int[] commonFacs = sortArrList(factA);
+		System.out.println("All CDs: " + Arrays.toString(commonFacs));//ERASE
+		System.out.println ("GCD: " +commonFacs[commonFacs.length - 1]);//ERASE
+		return commonFacs[commonFacs.length - 1];
+	} 
 }
