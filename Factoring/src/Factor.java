@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,6 +9,7 @@ public class Factor {
 	public static final int MIN_VALUE = 1;
 	public static final int MAX_VALUE = 100;
 	
+	
 	public static void main (String[] args){
 		
 		//prompt input
@@ -19,22 +19,27 @@ public class Factor {
 		
 		do {
 			System.out.println("Input integer between " + MIN_VALUE + "-" + MAX_VALUE + ": ");
-			//TODO: account for input of 2 integers --- GCD
+			
+			//TODO: a parsing method with scanner passed to it that returns a boolean for (in)valid input
+			
 			if (scanner.hasNextInt()) {
 				int input = scanner.nextInt();
 				if (input >= MIN_VALUE && input <= MAX_VALUE){
 					ArrayList<Integer> factors = factor(input);
-					System.out.println(factors.toString() + "\n");
+					int [] sorted = sortArrList(factors);
+					System.out.println(Arrays.toString(sorted) + "\n");//TODO: not required
+					//Accounts for second input
 					if (scanner.hasNextInt()) {
-						greatestDenom(factors, scanner.nextInt());
+						int inputTwo = scanner.nextInt();
+						int gCD = greatestDenom(factors, inputTwo);
+						System.out.println ("Greatest Common Denominator: " + gCD + "\n");
 					}
 				} else {
 					System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE + ".\n");
 				}
-				//TODO:Account for second intdf
 			} else {
 				if (scanner.next().equalsIgnoreCase("quit"))
-					run = false;
+					run = false; //Stops running program
 				else 
 					System.out.println("Error: Input must be of type integer. \n");
 				//error message
@@ -43,7 +48,39 @@ public class Factor {
 		scanner.close();
 		//parse input
 		//factor, quit, or error message
+		
+		
+		
+		/* Attempting to rewrite main method so that FactorTest may thoroughly test the functionality:
+		
+		do {
+		 	System.out.println("Input integer between " + MIN_VALUE + "-" + MAX_VALUE + ": ");
+		 	
+		 	if (scanner.hasNext()){ //If there is ANY input
+		 		if (parse(scanner.next()){//If the input is an INT
+		 			
+		 */
 	}
+	
+	
+	/*Different Parsing Method!!!!
+	 * 
+	
+	//Parses a line of input; returns true if the input is valid
+	public static boolean parseInput (String in) {
+		try { //All integers
+			int input = Integer.parseInt(in);
+			if (input < MIN_VALUE && input > MAX_VALUE){
+				System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE + ".\n");
+				return false;
+			}
+			return true;
+		} catch (NumberFormatException e) {
+			System.out.println("Error: Input must be of type integer. \n");
+			return false;
+		}
+		
+	} */
 	
 	//Factor method: take int and divide
 	
@@ -78,8 +115,7 @@ public class Factor {
 		ArrayList<Integer> factB = factor(inputB);
 		boolean alterA = factA.retainAll(factB);//removes all factors in A not contained in B
 		int[] commonFacs = sortArrList(factA);
-		System.out.println("All CDs: " + Arrays.toString(commonFacs));//ERASE
-		System.out.println ("GCD: " +commonFacs[commonFacs.length - 1]);//ERASE
+		//System.out.println("All CDs: " + Arrays.toString(commonFacs));
 		return commonFacs[commonFacs.length - 1];
 	} 
 }
