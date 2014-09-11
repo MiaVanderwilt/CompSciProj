@@ -31,7 +31,7 @@ public class Factor {
 				} else {
 					System.out.println("Error: Integer must be between " + MIN_VALUE + " and " + MAX_VALUE + ".\n");
 				}
-				//TODO:Account for second int
+				//TODO:Account for second intdf
 			} else {
 				if (scanner.next().equalsIgnoreCase("quit"))
 					run = false;
