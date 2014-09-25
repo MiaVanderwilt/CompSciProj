@@ -19,6 +19,9 @@ public class Calculator {
 	JLabel output;
 	JLabel errorTxt;
 	
+	String inputA;
+	String inputB;	
+	
 	double base;
 	double exp;
 	
@@ -36,12 +39,12 @@ public class Calculator {
 		frame.add(panel);
 		
 		//Input base
-		baseNum = new JTextField("Input base number (a) : ", 20);
+		baseNum = new JTextField("Input base number (a) : ", 20);//WARNING: if changing language of message, consult TxtFldListener
 		baseNum.addActionListener(new TxtFldListener());
 		panel.add(baseNum, BorderLayout.WEST);
 		
 		//Input exp
-		exponent = new JTextField("Input exponent (b) : ", 20);
+		exponent = new JTextField("Input exponent (b) : ", 20);//WARNING: if changing language of message, consult TxtFldListener
 		exponent.addActionListener(new TxtFldListener());
 		panel.add(exponent, BorderLayout.CENTER);
 		
@@ -55,7 +58,7 @@ public class Calculator {
 		panel.add(output, BorderLayout.SOUTH);
 		
 		//Label error message
-		errorTxt = new JLabel("Please type input after messages");
+		errorTxt = new JLabel("Please press enter after typing input.");
 		panel.add(errorTxt, BorderLayout.NORTH);
 		
 		frame.setVisible(true);
@@ -68,23 +71,22 @@ public class Calculator {
 			
 			JTextField eventSource = (JTextField) e.getSource();
 
-			String text = eventSource.getText();
-		    
 			try {
 		    	if (eventSource.equals(baseNum)){
-			    	text = text.substring(24);//Not ideal solution if user types before message
-			    	//System.out.println(text);
-			    	base = Double.parseDouble(text);
+			    	inputA = eventSource.getText();
+			    	inputA = inputA.replace("Input base number (a) : ", "");
+			    	
+			    	base = Double.parseDouble(inputA);
 
 		    	} else if (eventSource.equals(exponent)) {
-		    		text = text.substring(21);
-		    		System.out.println(text);
+		    		inputB = eventSource.getText();
+		    		inputB = inputB.replace("Input exponent (b) : ", "");
 
-		    		exp = Double.parseDouble(text);
+		    		exp = Double.parseDouble(inputB);
+
 		    	}
 		    } catch (NumberFormatException err) {
-		    	
-		    	errorTxt.setText("Error: Input in both text fields must be of type double or int.");
+		    	errorTxt.setText("Error: Input in both text fields must be of type double or int and contain only one entry.");
 		    }
 		}
 	}
@@ -93,8 +95,11 @@ public class Calculator {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			output.setText("Output: " + Math.pow(base, exp));
+			if (inputA != null && inputB != null){
+				output.setText(base + "^" + exp + " = " + Math.pow(base, exp));
+			} else {
+				errorTxt.setText("Error: Please enter input in both text fields before completing operation");
+			}
 		}
-		
 	}
 }
